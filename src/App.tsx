@@ -5,10 +5,10 @@ import './App.css'
 import InputField from './components/InputField/InputField'
 
 function App() {
-  const [count, setCount] = useState(0)
-  let a: number;
-  a = 5
-  console.log(a);
+
+
+  const [task, setTask] = useState<string>('')
+  const [tasks, setTasks] = useState<>([])
 
 
   return (
@@ -16,11 +16,10 @@ function App() {
 
       <h1 className="text-3xl text-center font-medium pt-10">
         Taskify <span className='text-base '>By Siam</span>
-       
       </h1>
 
 
-      <InputField/>
+      <InputField task={task} setTask={setTask} />
     </div>
   )
 }
