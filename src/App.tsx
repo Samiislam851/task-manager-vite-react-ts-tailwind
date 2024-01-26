@@ -5,10 +5,14 @@ import './App.css'
 import InputField from './components/InputField/InputField'
 
 function App() {
+  interface taskType {
+    task: string,
+    dateAndTime: number,
+    isDone: boolean
+  }
 
-
-  const [task, setTask] = useState<string>('')
-  const [tasks, setTasks] = useState<>([])
+  const [taskText, setTaskText] = useState<string>('')
+  const [tasks, setTasks] = useState<taskType[]>([])
 
 
   return (
@@ -19,7 +23,7 @@ function App() {
       </h1>
 
 
-      <InputField task={task} setTask={setTask} />
+      <InputField taskText={taskText} setTaskText={setTaskText} />
     </div>
   )
 }
