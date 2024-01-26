@@ -7,14 +7,27 @@ import InputField from './components/InputField/InputField'
 function App() {
   interface taskType {
     task: string,
-    dateAndTime: number,
+    dateAndTime: Date,
     isDone: boolean
   }
 
   const [taskText, setTaskText] = useState<string>('')
   const [tasks, setTasks] = useState<taskType[]>([])
 
+  const handleAddTask = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log(taskText, tasks);
+    if (taskText) {
+      let temp : taskType []  = [...tasks, {task: taskText, dateAndTime: new Date(), isDone: false } ]
+      setTasks(temp)
+      setTaskText('')
+      
+     
+      
+    }
 
+  }
+ 
   return (
     <div className="font-saira bg-[#2f74c0] text-white py-10 min-h-[100vh]">
 
@@ -23,7 +36,9 @@ function App() {
       </h1>
 
 
-      <InputField taskText={taskText} setTaskText={setTaskText} />
+      <InputField taskText={taskText} handleAddTask={handleAddTask} setTaskText={setTaskText} />
+
+      {tasks.map((task :taskType ,i:number) =><li>{task.task}</li>)}
     </div>
   )
 }
