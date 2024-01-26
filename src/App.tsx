@@ -11,11 +11,11 @@ function App() {
 
 
   return (
-    <div className="font-saira">
+    <div className="font-saira bg-[#2f74c0] text-white py-10 min-h-[100vh]">
 
-<h1 className="text-3xl">
-      Hello world!
-    </h1>
+      <h1 className="text-3xl text-center font-medium pt-10">
+        Taskify <span className='text-xl '>By Siam</span>
+      </h1>
     </div>
   )
 }
