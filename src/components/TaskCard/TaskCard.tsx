@@ -24,17 +24,25 @@ const TaskCard = ({ taskData, handleDeleteTask, tasks, setTasks }: props) => {
 
 
     const handleDone = (id: number) => {
-        const index = tasks.findIndex(task => task.id === id)
 
-        const theTask = tasks.find(task => task.id === id)
 
-        if (!theTask) return;
-        const tasksTemp = [...tasks]
-        let temp: taskType = { ...theTask, isDone: !isDone }
-tasksTemp[index]= temp
-        // console.log(otherTasks, temp);
+        ////////////////////// Implementation 1 /////////////////////
+        // const index = tasks.findIndex(task => task.id === id)
 
-        setTasks([...tasksTemp])
+        // const theTask = tasks.find(task => task.id === id)
+
+        // if (!theTask) return;
+        // const tasksTemp = [...tasks]
+        // let temp: taskType = { ...theTask, isDone: !isDone }
+        // tasksTemp[index] = temp
+        // setTasks([...tasksTemp])
+
+
+        ////////////////////// Implementation 2 /////////////////////
+        
+        setTasks(tasks.map(task => task.id === id ? { ...task, isDone: !isDone } : task))
+
+
     }
 
 
