@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdDeleteOutline, MdEdit, MdOutlineDone } from 'react-icons/md';
 interface taskType {
     id: number,
@@ -18,9 +18,21 @@ interface props {
 
 const TaskCard = ({ taskData, handleDeleteTask, tasks, setTasks }: props) => {
     const { id, task, dateAndTime, isDone } = taskData;
-
     const formattedDate = dateAndTime.toLocaleDateString();
     const formattedTime = dateAndTime.toLocaleTimeString();
+
+    const [editedText, setEditedText] = useState<string>(task)
+    const [editing, setEditing] = useState<boolean>(false)
+
+    const saveEdit = (e: any) => {
+        if (e.key == 'Enter' && editedText !== '') {
+
+            e.preventDefault()
+            setTasks(tasks.map(task => task.id == id ? { ...task, task: editedText } : task))
+            setEditing(false)
+        }
+        
+    }
 
 
     const handleDone = (id: number) => {
@@ -39,7 +51,7 @@ const TaskCard = ({ taskData, handleDeleteTask, tasks, setTasks }: props) => {
 
 
         ////////////////////// Implementation 2 /////////////////////
-        
+
         setTasks(tasks.map(task => task.id === id ? { ...task, isDone: !isDone } : task))
 
 
@@ -47,12 +59,21 @@ const TaskCard = ({ taskData, handleDeleteTask, tasks, setTasks }: props) => {
 
 
 
+
+
+
     return (
         <div className='flex gap-5 justify-around items-center hover:shadow-xl transition-all duration-300 ease-in-out p-3 bg-gray-100 rounded-lg my-2 mx-3 text-gray-500 '>
             <div className='basis-1/3'>
                 <div className='border overflow-hidden w-full h-[30px] hover:h-fit transition-all ease-in-out duration-300 p-1 basis-1/3 '
-                >
-                    {isDone ? <s>{task}</s> : <span>{task}</span>}
+                >{
+                        editing ? <> <input value={editedText} onKeyDown={(e) => saveEdit(e)} onChange={(e) => setEditedText(e.target.value)} type="text" /></> 
+                        
+                        :
+                        
+                        <>  {isDone ? <s>{task}</s> : <span>{task}</span>}</>
+                    }
+
                 </div>
             </div>
 
@@ -62,7 +83,7 @@ const TaskCard = ({ taskData, handleDeleteTask, tasks, setTasks }: props) => {
 
             <div className='basis-1/3 text-center'>
                 <div className='flex justify-center gap-2'>
-                    <button title='Edit' className='p-1 px-2 text-white text-base rounded-md hover:scale-105 transition-all duration-300 ease-in-out bg-green-600' >
+                    <button onClick={() => setEditing(true)} title='Edit' className='p-1 px-2 text-white text-base rounded-md hover:scale-105 transition-all duration-300 ease-in-out bg-green-600' >
                         <MdEdit />
                     </button>
                     <button onClick={() => handleDone(id)} title='Done' className='p-1 px-2 text-white text-base rounded-md hover:scale-105 transition-all duration-300 ease-in-out bg-blue-600' >
