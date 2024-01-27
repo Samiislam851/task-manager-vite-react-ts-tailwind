@@ -30,9 +30,12 @@ function App() {
   const [taskText, setTaskText] = useState<string>('')
   const [tasks, setTasks] = useState<taskType[]>([])
 
+
+
+  ////////////////////////// functionalities ///////////////
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(taskText, tasks);
+
     if (taskText) {
       let generatedId = generateUniqueId(tasks)
 
@@ -41,12 +44,15 @@ function App() {
       setTaskText('')
     }
   }
+
+
   const handleDeleteTask = (id: number) => {
-    console.log('clicked!',id);
-    
+
+
     const newTasks = tasks.filter(task => task.id !== id)
     setTasks(newTasks)
   }
+
 
   return (
     <div className="font-saira bg-[#2f74c0] text-white py-10 min-h-[100vh]">
@@ -57,10 +63,10 @@ function App() {
 
 
       <InputField taskText={taskText} handleAddTask={handleAddTask} setTaskText={setTaskText} />
-      <div className='flex flex-col md:flex-row px-10'>
+      <div className='flex flex-col md:flex-row px-2 md:px-10'>
         <div className='basis-1/2'>
           <h3 className='py-2 text-center text-xl'>{tasks[0] && 'To Do :'} </h3>
-          {tasks.map((taskData: taskType, i: number) => <TaskCard handleDeleteTask={handleDeleteTask} key={i} taskData={taskData} />)}
+          {tasks.map((taskData: taskType, i: number) => <TaskCard handleDeleteTask={handleDeleteTask} setTasks={setTasks} tasks={tasks} key={i} taskData={taskData} />)}
         </div>
         {/* <div className='basis-1/2'>
           <h3 className='py-2 text-center text-xl'>{tasks[0] && 'Done :'} </h3>
